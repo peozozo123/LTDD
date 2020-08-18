@@ -20,21 +20,29 @@ const val TOTAL_QUESTIONS: String = "total_questions"
 const val COREC_ANSWER = ""
 private var mCorrectAnswers: Int=0
 private var mCurrentPosition: Int =1
+private var mang: Int = 5
+private var mQuestionsList= arrayListOf<Questions>()
+private var flag: Int = 1
 class playGame : AppCompatActivity(), View.OnClickListener{
 
     private var mSelectedOptionPosition: Int = 0
-    private var mang: Int = 3
-    private var mQuestionsList= arrayListOf<Questions>()
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
         setContentView(R.layout.activity_play_game)
         imgBack.setOnClickListener {
             val intent: Intent = Intent( applicationContext, MainActivity::class.java)
+            mCurrentPosition = 1
+            mCorrectAnswers = 0
+            flag = 1
+            mang = 5
             startActivity(intent)
         }
-        mQuestionsList = DBHelper(this).getAllQuestions()
-        mQuestionsList.shuffle()
+        if (flag == 1 ) {
+            mQuestionsList = DBHelper(this).getAllQuestions()
+            mQuestionsList.shuffle()
+            flag = 0
+        }
         setQuestion()
         txtMang.text ="Ngu: " + mang.toString()
         txtSoCau.text = "Câu: " + mCurrentPosition.toString() + "/" + mQuestionsList?.size.toString()
@@ -90,6 +98,7 @@ class playGame : AppCompatActivity(), View.OnClickListener{
              else if(question?.cautl != mSelectedOptionPosition) {
                 answerView(mSelectedOptionPosition, R.drawable.wrong_option)
                 mang --
+
                 txtMang.text ="Ngu: " + mang.toString()
                 if (mang ==0) {
                     val intent: Intent = Intent( applicationContext, thuacuoc::class.java)
@@ -97,6 +106,8 @@ class playGame : AppCompatActivity(), View.OnClickListener{
                     intent.putExtra(TOTAL_QUESTIONS, mQuestionsList!!.size)
                     mCurrentPosition = 1
                     mCorrectAnswers = 0
+                    flag = 1
+                    mang = 5
                     startActivity(intent)
                     finish()
                 }
@@ -135,21 +146,25 @@ class playGame : AppCompatActivity(), View.OnClickListener{
         when(answer) {
             1 -> {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                    btna.isClickable = false
                     btna.background = ContextCompat.getDrawable(this, drawableView)
                 }
             }
             2 -> {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                    btnb.isClickable = false
                     btnb.background = ContextCompat.getDrawable(this, drawableView)
                 }
             }
             3 -> {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                    btnc.isClickable = false
                     btnc.background = ContextCompat.getDrawable(this, drawableView)
                 }
             }
             4 -> {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                    btnd.isClickable = false
                     btnd.background = ContextCompat.getDrawable(this, drawableView)
                 }
             }

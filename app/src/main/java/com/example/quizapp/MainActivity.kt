@@ -10,8 +10,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        var mediaPlayer: MediaPlayer = MediaPlayer.create(this, R.raw.audio)
-        mediaPlayer.start()
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
         setContentView(R.layout.activity_main)
         btnChoiGame.setOnClickListener() {

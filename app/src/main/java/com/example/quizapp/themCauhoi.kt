@@ -14,7 +14,6 @@ class themCauhoi : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_them_cauhoi)
-
         btnGoi.setOnClickListener {
             val questions = Questions()
             questions.cauhoi = editThemCauHoi.text.toString()
